@@ -48,6 +48,18 @@ def dft(dft_size):
     return dft_matrix / np.sqrt(dft_size)
 
 
+def plot_interference(noise_a, monster_dft):
+    interference = np.zeros(2560)
+    indices = np.array([x for x in range(2560) if x % 80 == 0])
+    for i in range(5):
+        interference[indices] = noise_a[i]
+        indices += 16
+    interference_in_dft_domain = (monster_dft @ interference).real
+    plt.plot(interference_in_dft_domain)
+    plt.suptitle("Interference in DFT domain")
+    plt.show()
+
+
 def periodic_noise():
     # Section a:
     image = get_image("road.jpeg")
@@ -57,7 +69,11 @@ def periodic_noise():
     noisy_image = get_noisy_image(image, noise_a)
     plot_image(noisy_image, "Noisy Image")
 
+    # Section b:
+    monster_dft = dft(2560)
+    plot_interference(noise_a, monster_dft)
+
     # Section c:
-    print(dft(4))
+
 
 periodic_noise()
