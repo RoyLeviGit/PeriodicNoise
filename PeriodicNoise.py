@@ -1,5 +1,3 @@
-import time
-
 import numpy as np
 import matplotlib.image
 import matplotlib.pyplot as plt
@@ -73,10 +71,14 @@ def plot_interference_and_get_filter(noise_a, monster_dft):
     for i in range(5):
         interference[indices] = noise_a[i]
         indices += 16
-    interference_in_dft_domain = (monster_dft @ interference).real
+    interference_in_dft_domain = (monster_dft @ interference)
 
-    plt.plot(interference_in_dft_domain)
-    plt.suptitle("Interference in DFT domain")
+    plt.plot(interference_in_dft_domain.real)
+    plt.suptitle("Interference (real) in DFT domain")
+    plt.show()
+
+    plt.plot(interference_in_dft_domain.imag)
+    plt.suptitle("Interference (imaginary) in DFT domain")
     plt.show()
 
     return get_notch_filter(interference_in_dft_domain)
