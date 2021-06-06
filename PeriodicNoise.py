@@ -60,5 +60,6 @@ def periodic_noise():
     # Section c:
     print(dft(4))
 
+
 periodic_noise()
 
